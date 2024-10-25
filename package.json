@@ -1,0 +1,30 @@
+{
+  "name": "phantichdulieu",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc --skipLibCheck -p .",
+    "start": "ts-node index.ts",
+    "migration-run": "ts-node-dev --transpile-only ./db/runMigration.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/mssql": "^9.1.5",
+    "@types/node": "^22.7.7",
+    "appDir": "link:tss-react/next/appDir",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "ejs": "^3.1.10",
+    "express": "^4.21.1",
+    "mssql": "^11.0.1",
+    "mysql": "^2.18.1",
+    "typeorm": "^0.3.20"
+  }
+}

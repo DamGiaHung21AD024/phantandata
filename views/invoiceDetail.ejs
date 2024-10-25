@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Detail</title>
+</head>
+<body>
+    <pre><%= JSON.stringify(invoice, null, 2) %></pre>
+    <h1>Invoice Detail - SOHD: <%= invoice.SOHD %></h1>
+    <p>Customer: <%= invoice.customer.HOTEN %></p>
+    <p>Employee: <%= invoice.employee.HOTEN %></p>
+    <p>Region: <%= invoice.region.TEN_KV %></p>
+    <p>Total Price: <%= invoice.TRIGIA %></p>
+
+    <h2>Invoice Items</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% invoice.invoiceDetails.forEach(detail => { %>
+                <tr>
+                    <td><%= detail.SL %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</body>
+</html>

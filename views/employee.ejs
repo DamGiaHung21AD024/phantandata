@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Input</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- <pre><%= JSON.stringify(employees, null, 2) %></pre> -->
+        <h1 class="mt-5">Employee List</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Họ Tên</th>
+                    <th>Địa Chỉ</th>
+                    <th>Số Điện Thoại</th>
+                    <th>Khu Vực</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% employees.forEach(employee => { %>
+                    <tr>
+                        <td><%= employee.MANV %></td>
+                        <td><%= employee.HOTEN %></td>
+                        <td><%= employee.DCHI %></td>
+                        <td><%= employee.SODT %></td>
+                        <td><%= employee.region.TEN_KV %></td> 
+                        <td>
+                            <a href="/employees/edit/<%= employee.MANV %>" class="btn btn-warning btn-sm">Edit</a>
+                            <form action="/employees/delete/<%= employee.MANV %>" method="POST" style="display:inline;">
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+        <h1 class="mt-5">Add Employee</h1>
+        <form action="/employee" method="POST">
+          <label for="HOTEN">Họ Tên:</label>
+          <input type="text" id="HOTEN" name="HOTEN" required>
+      
+          <label for="DCHI">Địa Chỉ:</label>
+          <input type="text" id="DCHI" name="DCHI">
+      
+          <label for="SODT">Số Điện Thoại:</label>
+          <input type="text" id="SODT" name="SODT">
+      
+          <label for="KHU_VUC">Khu Vực:</label>
+          <select id="KHU_VUC" name="KHU_VUC" required>
+              <option value="KV01">KV01</option>
+              <option value="KV02">KV02</option>
+              <option value="KV03">KV03</option>
+          </select>
+      
+          <button type="submit">Thêm nhân viên</button>
+        </form>
+    </div>
+</body>
+</html>

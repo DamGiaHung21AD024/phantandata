@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Employee</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Edit Employee</h1>
+        <form action="/employees/edit/<%= employee.MANV %>" method="POST">
+            <label for="HOTEN">Họ Tên:</label>
+            <input type="text" id="HOTEN" name="HOTEN" value="<%= employee.HOTEN %>" required>
+        
+            <label for="SODT">Số Điện Thoại:</label>
+            <input type="text" id="SODT" name="SODT" value="<%= employee.SODT %>">
+        
+            <label for="KHU_VUC">Khu Vực:</label>
+            <select id="KHU_VUC" name="KHU_VUC" required>
+                <option value="KV01" <%= employee.KHU_VUC === 'KV01' ? 'selected' : '' %>>KV01</option>
+                <option value="KV02" <%= employee.KHU_VUC === 'KV02' ? 'selected' : '' %>>KV02</option>
+                <option value="KV03" <%= employee.KHU_VUC === 'KV03' ? 'selected' : '' %>>KV03</option>
+            </select>
+        
+            <button type="submit">Update Employee</button>
+        </form>
+        <a href="/employee" class="btn btn-secondary">Back</a>
+    </div>
+</body>
+</html>

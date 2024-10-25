@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đặt Hàng</title>
+</head>
+<body>
+    <h1>Đặt Hàng</h1>
+    <form action="/orders" method="POST">
+        <label for="MAKH">Khách Hàng:</label>
+        <select id="MAKH" name="MAKH" required>
+            <% customers.forEach(customer => { %>
+                <option value="<%= customer.MAKH %>"><%= customer.HOTEN %></option>
+            <% }); %>
+        </select>
+
+        <label for="MANV">Nhân Viên:</label>
+        <select id="MANV" name="MANV" required>
+            <% employees.forEach(employee => { %>
+                <option value="<%= employee.MANV %>"><%= employee.HOTEN %></option>
+            <% }); %>
+        </select>
+
+        <label for="KHU_VUC">Khu Vực:</label>
+        <select id="KHU_VUC" name="KHU_VUC" required>
+            <% regions.forEach(region => { %>
+                <option value="<%= region.MA_KV %>"><%= region.TEN_KV %></option>
+            <% }); %>
+        </select>
+
+        <label for="MASP">Sản Phẩm:</label>
+        <select id="MASP" name="MASP" required>
+            <% products.forEach(product => { %>
+                <option value="<%= product.MASP %>"><%= product.TENSP %></option>
+            <% }); %>
+        </select>
+
+        <label for="SL">Số lượng:</label>
+        <input type="number" id="SL" name="SL" required step="1" min="1">
+
+        <button type="submit">Đặt Hàng</button>
+    </form>
+</body>
+</html>
