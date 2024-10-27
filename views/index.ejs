@@ -1,14 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
-    <div class="container">
-        hi
-    </div>
-</body>
-</html>
+<%- include('header') %>
+  <div class="px-5 mt-5">
+    <h1 class="text-center mb-4">Danh sách khách hàng và hóa đơn</h1>
+    <table class="table table-bordered table-hover table-striped text-center">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Mã khách hàng</th>
+          <th scope="col">Họ tên</th>
+          <th scope="col">Số hóa đơn</th>
+          <th scope="col">Ngày hóa đơn</th>
+          <th scope="col">Trị giá</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% customersWithOrders.forEach(customer=> { %>
+          <% customer.invoices.forEach((invoice, index)=> { %>
+            <tr>
+              <% if (index===0) { %>
+                <td rowspan="<%= customer.invoices.length %>" class="align-middle text-center font-weight-bold">
+                  <%= customer.MAKH %>
+                </td>
+                <td rowspan="<%= customer.invoices.length %>" class="align-middle">
+                  <%= customer.HOTEN %>
+                </td>
+                <% } %>
+                  <td class="text-center">
+                    <%= invoice.SOHD %>
+                  </td>
+                  <td>
+                    <%= new Date(invoice.NGHD).toLocaleDateString() %>
+                  </td>
+                  <td class="text-right">
+                    <%= invoice.TRIGIA.toLocaleString('vi-VN', { style: 'currency' , currency: 'VND' }) %>
+                  </td>
+            </tr>
+            <% }) %>
+              <% }) %>
+      </tbody>
+    </table>
+  </div>
+<%- include('footer') %>

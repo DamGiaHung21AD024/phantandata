@@ -1,0 +1,34 @@
+<%- include('header') %>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Chỉnh sửa sản phẩm</h1>
+        <form action="/products/edit/<%= product.MASP %>" method="POST">
+            <div class="form-group">
+                <label for="TENSP">Tên sản phẩm:</label>
+                <input type="text" class="form-control" id="TENSP" name="TENSP" value="<%= product.TENSP %>" required>
+            </div>
+            <div class="form-group">
+                <label for="DVT">Đơn vị tính:</label>
+                <input type="text" class="form-control" id="DVT" name="DVT" value="<%= product.DVT %>">
+            </div>
+            <div class="form-group">
+                <label for="NUOCSX">Nước sản xuất:</label>
+                <input type="text" class="form-control" id="NUOCSX" name="NUOCSX" value="<%= product.NUOCSX %>">
+            </div>
+            <div class="form-group">
+                <label for="GIA">Giá:</label>
+                <input type="number" class="form-control" id="GIA" name="GIA" value="<%= product.GIA %>" required>
+            </div>
+            <div class="form-group">
+                <label for="KHU_VUC">Khu vực:</label>
+                <select id="KHU_VUC" name="KHU_VUC" class="form-control" required>
+                    <option value="KV01" <%= product.region?.TEN_KV === 'KV01' ? 'selected' : '' %>>KV01</option>
+                    <option value="KV02" <%= product.region?.TEN_KV === 'KV02' ? 'selected' : '' %>>KV02</option>
+                    <option value="KV03" <%= product.region?.TEN_KV === 'KV03' ? 'selected' : '' %>>KV03</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Cập nhật</button>
+            <a href="/products/all" class="btn btn-secondary">Quay lại</a>
+        </form>
+    </div>
+<%- include('footer') %>
+

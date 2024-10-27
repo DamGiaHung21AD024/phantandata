@@ -1,43 +1,154 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Input</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
+<%- include('header') %>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #0056b3;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        .button {
+            padding: 5px 10px;
+            margin: 0 5px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+        }
+
+        .edit-button {
+            background-color: #28a745; /* Màu xanh lá */
+        }
+
+        .delete-button {
+            background-color: #dc3545; /* Màu đỏ */
+        }
+
+        .btn {
+            display: flex;
+        }
+
+        .form-container {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        .submit-button {
+            background-color: #007bff; /* Màu xanh lam */
+        }
+    </style>
     <div class="container">
-        <pre><%= JSON.stringify(employee, null, 2) %></pre>
-        <h1 class="mt-5">Add Customer</h1>
-        <form action="/customers" method="POST">
-          <label for="HOTEN">Họ Tên:</label>
-          <input type="text" id="HOTEN" name="HOTEN" required>
-      
-          <label for="DCHI">Địa Chỉ:</label>
-          <input type="text" id="DCHI" name="DCHI">
-      
-          <label for="SODT">Số Điện Thoại:</label>
-          <input type="text" id="SODT" name="SODT">
-      
-          <label for="NGSINH">Ngày Sinh:</label>
-          <input type="date" id="NGSINH" name="NGSINH">
-      
-          <label for="NGDK">Ngày Đăng Ký:</label>
-          <input type="date" id="NGDK" name="NGDK">
-      
-          <label for="DOANHSO">Doanh Số:</label>
-          <input type="number" id="DOANHSO" name="DOANHSO">
-      
-          <label for="KHU_VUC">Khu Vực:</label>
-          <select id="KHU_VUC" name="KHU_VUC" required>
-              <option value="KV01">KV01</option>
-              <option value="KV02">KV02</option>
-              <option value="KV03">KV03</option>
-          </select>
-      
-          <button type="submit">Thêm Khách Hàng</button>
-        </form>
+        <h1>Danh sách Khách Hàng</h1>
+
+        <div class="form-container">
+            <h2>Thêm Khách Hàng</h2>
+            <form action="/customers/add" method="POST">
+                <div class="form-group">
+                    <label for="HOTEN">Họ Tên:</label>
+                    <input type="text" id="HOTEN" name="HOTEN" required>
+                </div>
+                <div class="form-group">
+                    <label for="DCHI">Địa Chỉ:</label>
+                    <input type="text" id="DCHI" name="DCHI" required>
+                </div>
+                <div class="form-group">
+                    <label for="SODT">Số Điện Thoại:</label>
+                    <input type="text" id="SODT" name="SODT" required>
+                </div>
+                <div class="form-group">
+                    <label for="NGSINH">Ngày Sinh:</label>
+                    <input type="date" id="NGSINH" name="NGSINH" required>
+                </div>
+                <button type="submit" class="button submit-button">Thêm Khách Hàng</button>
+            </form>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>MAKH</th>
+                    <th>Họ Tên</th>
+                    <th>Địa Chỉ</th>
+                    <th>Số Điện Thoại</th>
+                    <th>Ngày Sinh</th>
+                    <th>Ngày Đăng Ký</th>
+                    <th>Doanh Số</th>
+                    <th>Khu Vực</th>
+                    <th>Hành Động</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% customers.forEach(customer => { %>
+                    <tr>
+                        <td><%= customer.MAKH %></td>
+                        <td><%= customer.HOTEN %></td>
+                        <td><%= customer.DCHI %></td>
+                        <td><%= customer.SODT %></td>
+                        <td><%= new Date(customer.NGSINH).toLocaleDateString() %></td>
+                        <td><%= new Date(customer.NGDK).toLocaleDateString() %></td>
+                        <td><%= customer.DOANHSO %> VNĐ</td>
+                        <td><%= customer.KHU_VUC %></td>
+                        <td class="btn">
+                            <a href="/customers/edit/<%= customer.MAKH %>" class="button edit-button">Chỉnh sửa</a>
+                            <form action="/customers/delete/<%= customer.MAKH %>" method="POST" style="display:inline;">
+                                <button type="submit" class="button delete-button" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')">Xóa</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
     </div>
-</body>
-</html>
+    <%- include('footer') %>

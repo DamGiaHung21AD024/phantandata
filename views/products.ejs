@@ -1,0 +1,46 @@
+<%- include('header') %>
+
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Chọn Sản Phẩm Để Đặt Hàng</h1>
+  <form action="/order" method="POST">
+    <div class="form-group">
+      <label for="MAKH">Mã khách hàng:</label>
+      <select class="form-control" id="MAKH" name="MAKH" required>
+        <option value="">Chọn mã khách hàng</option>
+        <% customers.forEach(customer => { %>
+          <option value="<%= customer.MAKH %>"><%= customer.HOTEN %></option>
+        <% }); %>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="MANV">Mã nhân viên:</label>
+      <select class="form-control" id="MANV" name="MANV" required>
+        <option value="">Chọn mã nhân viên</option>
+        <% employees.forEach(employee => { %>
+          <option value="<%= employee.MANV %>"><%= employee.HOTEN %></option>
+        <% }); %>
+      </select>
+    </div>
+
+    <h4>Danh sách sản phẩm:</h4>
+    <% products.forEach((product, index) => { %>
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title"><%= product.TENSP %></h5>
+          <p class="card-text">Giá: <%= product.GIA.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></p>
+          <div class="form-group">
+            <label for="quantity-<%= index %>">Số lượng:</label>
+            <input type="number" class="form-control" id="quantity-<%= index %>" name="products[<%= index %>][SL]" min="0" value="0">
+          </div>
+          <input type="hidden" name="products[<%= index %>][MASP]" value="<%= product.MASP %>">
+          <input type="hidden" name="products[<%= index %>][GIA]" value="<%= product.GIA %>">
+        </div>
+      </div>
+    <% }); %>
+
+    <button type="submit" class="btn btn-primary">Đặt hàng</button>
+  </form>
+</div>
+
+<%- include('footer') %>
+

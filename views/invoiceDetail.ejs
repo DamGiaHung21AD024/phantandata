@@ -1,33 +1,85 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice Detail</title>
-</head>
-<body>
-    <pre><%= JSON.stringify(invoice, null, 2) %></pre>
-    <h1>Invoice Detail - SOHD: <%= invoice.SOHD %></h1>
-    <p>Customer: <%= invoice.customer.HOTEN %></p>
-    <p>Employee: <%= invoice.employee.HOTEN %></p>
-    <p>Region: <%= invoice.region.TEN_KV %></p>
-    <p>Total Price: <%= invoice.TRIGIA %></p>
+<%- include('header') %>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+        margin: 20px;
+    }
 
-    <h2>Invoice Items</h2>
-    <table>
-        <thead>
+    h1, h2 {
+        color: #0056b3;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    table, th, td {
+        border: 1px solid #ddd;
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #007bff;
+        color: white;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    tr:hover {
+        background-color: #ddd;
+    }
+
+    .invoice-info {
+        background: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+</style>
+<!-- <div class="invoice-info">
+    <h1>Invoice Detail - SOHD: <%= invoice.SOHD %></h1>
+    <p><strong>Date:</strong> <%= new Date(invoice.NGHD).toLocaleString() %></p>
+    <p><strong>Customer:</strong> <%= invoice.customer.HOTEN %></p>
+    <p><strong>Address:</strong> <%= invoice.customer.DCHI %></p>
+    <p><strong>Phone:</strong> <%= invoice.customer.SODT %></p>
+    <p><strong>Employee:</strong> <%= invoice.employee.HOTEN %></p>
+    <p><strong>Region:</strong> <%= invoice.region.TEN_KV %></p>
+    <p><strong>Total Price:</strong> <%= invoice.TRIGIA %> VNĐ</p>
+</div> -->
+
+<h2>Invoice Items</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Unit</th>
+            <th>Price</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% invoice.invoiceDetails.forEach(detail => { %>
             <tr>
-                <th>Product</th>
-                <th>Quantity</th>
+                <td><%= detail.product.TENSP %></td>
+                <td><%= detail.SL %></td>
+                <td><%= detail.product.DVT %></td>
+                <td><%= detail.product.GIA %> VNĐ</td>
+                <td><%= detail.product.GIA * detail.SL %> VNĐ</td>
             </tr>
-        </thead>
-        <tbody>
-            <% invoice.invoiceDetails.forEach(detail => { %>
-                <tr>
-                    <td><%= detail.SL %></td>
-                </tr>
-            <% }); %>
-        </tbody>
-    </table>
-</body>
-</html>
+        <% }); %>
+    </tbody>
+</table>
+<%- include('footer') %>
+

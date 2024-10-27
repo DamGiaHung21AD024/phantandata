@@ -23,6 +23,9 @@ export class Invoice {
   @Column({ type: 'money', nullable: true })
   TRIGIA: number;
 
+  @Column({ type: 'char', length: 4, nullable: true })
+  KHU_VUC: string; 
+
   @ManyToOne(() => Region)
   @JoinColumn({ name: 'KHU_VUC' })
   region: Region;

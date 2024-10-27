@@ -1,5 +1,6 @@
-import { Entity, PrimaryColumn, Column, ManyToOne, JoinColumn, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, PrimaryColumn, Column, ManyToOne, JoinColumn, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Region } from './Region';
+import { Invoice } from './Invoice';
 
 @Entity('KHACHHANG')
 export class Customer {
@@ -33,4 +34,7 @@ export class Customer {
 
   @Column({ type: 'uniqueidentifier', nullable: true })
   rowguid: string;
+
+  @OneToMany(() => Invoice, (invoice) => invoice.customer)
+  invoices: Invoice[];
 }

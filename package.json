@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc --skipLibCheck -p .",
-    "start": "ts-node index.ts",
+    "start": "nodemon index.ts",
     "migration-run": "ts-node-dev --transpile-only ./db/runMigration.ts"
   },
   "keywords": [],
@@ -15,7 +15,6 @@
   "devDependencies": {
     "@types/mssql": "^9.1.5",
     "@types/node": "^22.7.7",
-    "appDir": "link:tss-react/next/appDir",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3"
   },
